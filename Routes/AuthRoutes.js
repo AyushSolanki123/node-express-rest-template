@@ -3,12 +3,7 @@ const router = express.Router();
 const { body } = require("express-validator");
 
 // controller
-const userController = require("../Controllers/UserController");
-const { verifyToken } = require("../MiddleWare/VerifyToken");
-
-router.get("/", verifyToken, userController.listUsers);
-
-router.get("/:userId", verifyToken, userController.getUserDetails);
+const authController = require("../Controllers/AuthController");
 
 router.post(
     "/register",
@@ -17,21 +12,19 @@ router.post(
         body("email").isEmail(),
         body("password").notEmpty(),
     ],
-    userController.registerUser
+    authController.registerUser
 );
 
 router.post(
     "/login",
     [body("email").isEmail(), body("password").notEmpty()],
-    userController.loginUser
+    authController.loginUser
 );
 
 router.post(
     "/refreshToken",
     [body("refreshToken").notEmpty()],
-    userController.refreshToken
+    authController.refreshToken
 );
-
-router.put("/:userId", verifyToken, userController.updateUserDetails);
 
 module.exports = router;

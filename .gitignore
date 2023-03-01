@@ -3,7 +3,6 @@ package-lock.json
 
 # environment variables
 env.js
-.env
 
 # logger files
 error.log
